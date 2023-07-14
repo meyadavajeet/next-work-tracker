@@ -1,6 +1,8 @@
+import { connectDB } from "@/config/db.connection";
 import UserModel from "@/models/user.model";
 import { NextResponse } from "next/server";
 
+connectDB();
 // localhost:3000/api/users/45  == localhost:3000/api/users/[userId]
 export async function DELETE(request, { params }) {
   // const { userId } = params;
@@ -34,10 +36,10 @@ export async function DELETE(request, { params }) {
 export async function GET(request, { params }) {
   try {
     const { userId } = params;
-    let user = await UserModel.findById(userId);
+    const user = await UserModel.findById({ _id: userId });
     return NextResponse.json({
       success: true,
-      message: "",
+      message: "Result success",
       data: user,
     });
   } catch (error) {
