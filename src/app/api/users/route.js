@@ -26,7 +26,7 @@ export async function GET() {
 	*/
 
   try {
-    const users = await UserModel.find({});
+    const users = await UserModel.find({}).select("-password");
     return NextResponse.json(
       {
         success: true,
@@ -40,11 +40,16 @@ export async function GET() {
     );
   } catch (error) {
     console.log("error in getting user", error);
-    return NextResponse.json({
-      success: false,
-      message: "Something went wrong!!!",
-      data: null,
-    });
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Something went wrong!!!",
+        data: null,
+      },
+      {
+        status: 500,
+      }
+    );
   }
 }
 
@@ -77,10 +82,13 @@ export async function POST(request) {
     });
   } catch (error) {
     console.log(error);
-    return NextResponse.json({
-      success: false,
-      message: "failed to create",
-      data: null,
-    });
+    return NextResponse.json(
+      {
+        success: false,
+        message: "failed to create",
+        data: null,
+      },
+      { status: 500 }
+    );
   }
 }

@@ -24,11 +24,14 @@ export async function DELETE(request, { params }) {
     });
   } catch (error) {
     console.log("error in deleting user", error);
-    return NextResponse.json({
-      success: false,
-      message: "Something went wrong!!!",
-      data: null,
-    });
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Something went wrong!!!",
+        data: null,
+      },
+      { status: 500 }
+    );
   }
 }
 
@@ -36,7 +39,7 @@ export async function DELETE(request, { params }) {
 export async function GET(request, { params }) {
   try {
     const { userId } = params;
-    const user = await UserModel.findById({ _id: userId });
+    const user = await UserModel.findById({ _id: userId }).select("-password");
     return NextResponse.json({
       success: true,
       message: "Result success",
@@ -44,10 +47,43 @@ export async function GET(request, { params }) {
     });
   } catch (error) {
     console.log("error in getting user by id", error);
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Something went wrong!!!",
+        data: null,
+      },
+      { status: 500 }
+    );
+  }
+}
+
+//Update USERS INFORMATION
+export async function PUT(request, { params }) {
+  const { userId } = params;
+  const { name, password, about, profileURL } = await request.json();
+  try {
+    let user = await UserModel.findById({ _id: userId });
+    user.name = name;
+    user.password = password;
+    user.about = about;
+    user.profileURL = profileURL;
+
+    const newUser = await user.save();
     return NextResponse.json({
-      success: false,
-      message: "Something went wrong!!!",
-      data: null,
+      success: true,
+      message: "Information updated !!!",
+      data: newUser,
     });
+  } catch (error) {
+    console.log("error in UPDATE", error);
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Something went wrong!!!",
+        data: null,
+      },
+      { status: 500 }
+    );
   }
 }
