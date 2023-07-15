@@ -9,10 +9,10 @@ connectDB();
 // get all task of a particular user
 export const GET = async (request, { params }) => {
   const { userId } = params;
-  const tasks = await TaskModel.find({
-    userId: userId,
-  });
   try {
+    const tasks = await TaskModel.find({
+      userId: userId,
+    });
     return sendResponse(true, tasks);
   } catch (error) {
     console.log("Error while getting user tasks", error.message);
