@@ -1,6 +1,7 @@
 import TaskModel from "@/models/task.model";
 import { NextResponse } from "next/server";
 import moment from "moment";
+import { sendResponse } from "@/utils/sendResponse";
 
 const { connectDB } = require("@/config/db.connection");
 
@@ -43,4 +44,18 @@ export async function POST(request) {
 }
 
 // get all task of all users
-export async function GET() {}
+export async function GET() {
+  try {
+    const tasks = await TaskModel.find({});
+    return sendResponse(true, tasks);
+  } catch (error) {
+    console.log("Error in get all user function", error);
+    return sendResponse(
+      true,
+      null,
+      "Error While fetching data",
+      500,
+      "INTERNAL SERVER ERROR"
+    );
+  }
+}
