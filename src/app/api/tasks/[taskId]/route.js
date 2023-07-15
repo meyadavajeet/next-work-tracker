@@ -12,6 +12,7 @@ export async function GET(request, { params }) {
     return sendResponse(true, "", task);
   } catch (error) {
     console.log("error in getting user by id", error);
+    return sendResponse(false, "", "Error while deleting data!!", 500);
   }
 }
 
