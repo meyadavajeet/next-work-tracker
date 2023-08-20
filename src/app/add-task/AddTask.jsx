@@ -6,9 +6,6 @@ import Image from "next/image";
 import { addTask } from "@/services/TaskService";
 import { toast } from "react-toastify";
 
-const metadata = {
-  title: "Add Task - Work Manager",
-};
 const AddTask = () => {
   // define state for getting all field values assign default empty string
   const [task, setTask] = useState({
