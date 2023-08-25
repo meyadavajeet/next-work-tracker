@@ -4,27 +4,23 @@ import backgroundImage from "../../../public/images/bg-1.jpg";
 import SignUpImage from "../../../public/images/signup.svg";
 import Image from "next/image";
 import { toast } from "react-toastify";
-import { registerUser } from "@/services/UserService";
 
-const SignUp = () => {
+const Login = () => {
   const [user, setUser] = useState({
-    name: "",
     email: "",
     password: "",
-    about: "",
-    imageURL: "https://i.stack.imgur.com/l60Hf.png",
   });
 
   // handleFormSubmit
   const handleSubmit = async (event) => {
     event.preventDefault();
     // console.log(event.target);
-    // console.log(user);
+    console.log(user);
     // validate your data
     try {
-      await registerUser(user);
+      //   await loginUser(user);
       toast.success("Registration Success !!!", { position: "top-right" });
-      resetForm();
+      //   resetForm();
     } catch (error) {
       console.log("error", error);
       toast.error("Something went wrong !!!" + error.response.data.message, {
@@ -35,13 +31,10 @@ const SignUp = () => {
 
   const resetForm = () => {
     setUser({
-      name: "",
       email: "",
       password: "",
-      about: "",
     });
   };
-
   return (
     <>
       <div
@@ -56,35 +49,23 @@ const SignUp = () => {
           <div className="container max-w-screen-lg mx-auto ">
             <div className="bg-slate-300 rounded shadow-lg p-4 px-4 md:p-8 mb-6">
               <h2 className="font-semibold text-xl text-gray-950 text-center">
-                Register
+                Login
               </h2>
               <hr />
 
               <div className="mt-4">
                 <form method="post" action="#!" onSubmit={handleSubmit}>
                   <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
-                    <div className="md:mt-10">
-                      <Image src={SignUpImage} alt="add-task" />
+                    <div className="md:mt-1">
+                      <Image
+                        className="h-40"
+                        src={SignUpImage}
+                        alt="login-image"
+                      />
                     </div>
 
                     <div className="lg:col-span-2">
                       <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
-                        <div className="md:col-span-5">
-                          <label htmlFor="name">Name</label>
-                          <input
-                            type="text"
-                            name="user_name"
-                            id="user_name"
-                            className="h-10 border mt-1 rounded px-4 w-full bg-gray-100"
-                            onChange={(event) => {
-                              setUser({
-                                ...user,
-                                name: event.target.value,
-                              });
-                            }}
-                            value={user.name}
-                          />
-                        </div>
                         <div className="md:col-span-5">
                           <label htmlFor="user_email">Email</label>
                           <input
@@ -118,32 +99,15 @@ const SignUp = () => {
                           />
                         </div>
                         <div className="md:col-span-5">
-                          <label htmlFor="user_about">About</label>
-                          <textarea
-                            name="user_about"
-                            id="user_about"
-                            rows={8}
-                            className="border mt-1 rounded px-4 w-full bg-gray-100"
-                            onChange={(event) => {
-                              setUser({
-                                ...user,
-                                about: event.target.value,
-                              });
-                            }}
-                            value={user.about}
-                          ></textarea>
-                        </div>
-
-                        <div className="md:col-span-5">
                           <div className=" text-center">
                             <div className="inline-flex items-end">
-                              <button className="bg-green-900 w-full hover:bg-green-500 text-white font-bold py-2 px-4 rounded">
-                                Register
+                              <button className="bg-green-900 hover:bg-green-500 text-white font-bold py-2 px-4 rounded">
+                                Login
                               </button>
                             </div>
                           </div>
                         </div>
-                        {/* {JSON.stringify(user)} */}
+                        {JSON.stringify(user)}
                       </div>
                     </div>
                   </div>
@@ -157,4 +121,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Login;
