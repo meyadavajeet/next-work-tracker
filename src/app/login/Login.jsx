@@ -4,6 +4,7 @@ import backgroundImage from "../../../public/images/bg-1.jpg";
 import SignUpImage from "../../../public/images/signup.svg";
 import Image from "next/image";
 import { toast } from "react-toastify";
+import { loginUser } from "@/services/UserService";
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -18,9 +19,9 @@ const Login = () => {
     console.log(user);
     // validate your data
     try {
-      //   await loginUser(user);
-      toast.success("Registration Success !!!", { position: "top-right" });
-      //   resetForm();
+      await loginUser(user);
+      toast.success(" Login Success !!!", { position: "top-right" });
+      resetForm();
     } catch (error) {
       console.log("error", error);
       toast.error("Something went wrong !!!" + error.response.data.message, {
