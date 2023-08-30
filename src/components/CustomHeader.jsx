@@ -31,7 +31,7 @@ const CustomHeader = () => {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/about"
                   className="block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   About
@@ -39,7 +39,7 @@ const CustomHeader = () => {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/services"
                   className="block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   Services
@@ -47,7 +47,7 @@ const CustomHeader = () => {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/contact"
                   className="block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   Contact
@@ -55,7 +55,7 @@ const CustomHeader = () => {
               </li>
               <li>
                 <Link
-                  href="add-task"
+                  href="/add-task"
                   className="block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   Add Task
@@ -63,7 +63,7 @@ const CustomHeader = () => {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/task-list"
                   className="block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   Tasks List
@@ -71,7 +71,7 @@ const CustomHeader = () => {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/login"
                   className="block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   Login
@@ -79,7 +79,7 @@ const CustomHeader = () => {
               </li>
               <li>
                 <Link
-                  href="signup"
+                  href="/signup"
                   className="block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   Register

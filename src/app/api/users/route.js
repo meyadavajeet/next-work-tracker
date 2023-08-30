@@ -1,6 +1,7 @@
 import { connectDB } from "@/config/db.connection";
 import UserModel from "@/models/user.model";
 import { NextResponse } from "next/server";
+import bcrypt from "bcryptjs";
 
 connectDB();
 
@@ -73,6 +74,11 @@ export async function POST(request) {
       about,
       imageURL,
     });
+    user.password = bcrypt.hashSync(
+      password,
+      parseInt(process.env.BCRYPT_SALT)
+    );
+
     const newUser = await user.save();
 
     return NextResponse.json({
@@ -85,7 +91,7 @@ export async function POST(request) {
     return NextResponse.json(
       {
         success: false,
-        message: "failed to create",
+        message: error.message,
         data: null,
       },
       { status: 500 }
