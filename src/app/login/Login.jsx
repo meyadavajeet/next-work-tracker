@@ -5,8 +5,10 @@ import SignUpImage from "../../../public/images/signup.svg";
 import Image from "next/image";
 import { toast } from "react-toastify";
 import { loginUser } from "@/services/UserService";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
+  const router = useRouter();
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -22,6 +24,7 @@ const Login = () => {
       await loginUser(user);
       toast.success(" Login Success !!!", { position: "top-right" });
       resetForm();
+      router.push("/profile/user");
     } catch (error) {
       console.log("error", error);
       toast.error("Something went wrong !!!" + error.response.data.message, {
@@ -108,7 +111,7 @@ const Login = () => {
                             </div>
                           </div>
                         </div>
-                        {JSON.stringify(user)}
+                        {/* {JSON.stringify(user)} */}
                       </div>
                     </div>
                   </div>
