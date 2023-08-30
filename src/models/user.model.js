@@ -23,4 +23,14 @@ const userSchema = new Schema(
 // mongoose.models = {};
 const UserModel = mongoose.models.users || mongoose.model("users", userSchema);
 
+userSchema.index({ email: 1 }, { unique: true });
+
+UserModel.init()
+  .then(() => {
+    console.log("UserModel index created successfully");
+  })
+  .catch((error) => {
+    console.error("Error creating UserModel index:", error);
+  });
+
 export default UserModel;
