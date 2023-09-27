@@ -1,12 +1,15 @@
 "use client";
 
+import UserContext from "@/app/context/userContext";
 import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
 
 const CustomHeader = () => {
+  const loggedInUser = useContext(UserContext);
+  console.log(loggedInUser);
   return (
     <div>
-      <nav className="dark:bg-white bg-gray-700 fixed w-full z-20 top-0 left-0 border-b dark:border-gray-200 border-gray-400">
+      <nav className=" bg-gray-700 fixed w-full z-20 top-0 left-0 border-b dark:border-gray-200 border-gray-400">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link
             href="#"
@@ -19,7 +22,7 @@ const CustomHeader = () => {
             className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
             id="navbar-sticky"
           >
-            <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-700 rounded-lg bg-gray-700 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-gray-700 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-700 rounded-lg bg-gray-700 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-gray-700 dark:bg-gray-800 dark:border-gray-700">
               <li>
                 <Link
                   href="/"

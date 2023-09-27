@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 
 export const connectDB = async () => {
   try {
+    if (mongoose.connection.readyState === 1) {
+      console.log("DB is already connected on host", mongoose.connection.host);
+      return;
+    }
+
     const { connection } = await mongoose.connect(process.env.MONGO_URL, {
       dbName: "work_tracker",
     });
