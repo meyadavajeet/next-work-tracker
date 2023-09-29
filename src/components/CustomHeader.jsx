@@ -1,12 +1,30 @@
 "use client";
 
 import UserContext from "@/app/context/userContext";
+import { logoutUser } from "@/services/UserService";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useContext } from "react";
+import { toast } from "react-toastify";
 
 const CustomHeader = () => {
-  const loggedInUser = useContext(UserContext);
-  console.log(loggedInUser);
+  const context = useContext(UserContext);
+  console.log(context.user, "logging the loggedIn user");
+  const router = useRouter();
+
+  // function for user logout
+  async function doLogout(){
+    try {
+      const result = await logoutUser();
+      console.log(result,"logout");
+      context.setUser(undefined);
+      toast.success("Logout success");
+       router.push("/");
+    } catch (error) {
+      console.log("error in doLogout",error);
+      
+    }
+  }
   return (
     <div>
       <nav className=" bg-gray-700 fixed w-full z-20 top-0 left-0 border-b dark:border-gray-200 border-gray-400">
@@ -56,38 +74,66 @@ const CustomHeader = () => {
                   Contact
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/add-task"
-                  className="block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Add Task
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/task-list"
-                  className="block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Tasks List
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/login"
-                  className="block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Login
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/signup"
-                  className="block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Register
-                </Link>
-              </li>
+              {context.user && (
+                <>
+                  <li>
+                    <Link
+                      href="/add-task"
+                      className="block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                    >
+                      Add Task
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/task-list"
+                      className="block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                    >
+                      Tasks List
+                    </Link>
+                  </li>
+                </>
+              )}
+              {!context.user && (
+                <>
+                  <li>
+                    <Link
+                      href="/login"
+                      className="block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                    >
+                      Login
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/signup"
+                      className="block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                    >
+                      Register
+                    </Link>
+                  </li>
+                </>
+              )}
+              {context.user && (
+                <>
+                  <li>
+                    <Link
+                      href="/profile"
+                      className="block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                    >
+                      {context.user.name}
+                    </Link>
+                  </li>
+                  <li>
+                    <button
+                      onClick={doLogout}
+                      className="block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>
