@@ -8,6 +8,9 @@ import { loginUser } from "@/services/UserService";
 import { useRouter } from "next/navigation";
 
 const Login = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+
   const router = useRouter();
   const [user, setUser] = useState({
     email: "",
@@ -17,19 +20,43 @@ const Login = () => {
   // handleFormSubmit
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
     // console.log(event.target);
     console.log(user);
     // validate your data
+
+    // Reset previous errors
+    setErrors({});
+    if (!user.email || !user.password) {
+      //  Handle validation errors, e.g., display error messages
+      const validationErrors = {
+        email: !user.email ? "Email is required." : "",
+        password: !user.password ? "Password is required." : "",
+      };
+      setErrors(validationErrors);
+      console.log(errors);
+      return;
+    }
+
     try {
-      await loginUser(user);
-      toast.success(" Login Success !!!", { position: "top-right" });
-      resetForm();
+      if (user) {
+        await loginUser(user);
+        toast.success(" Login Success !!!", { position: "top-right" });
+        resetForm();
+      } else {
+        toast.error("Please provide required details", {
+          position: "top-right",
+        });
+      }
       router.push("/profile/user");
     } catch (error) {
       console.log("error", error);
       toast.error("Something went wrong !!!" + error.response.data.message, {
         position: "top-right",
       });
+    } finally {
+      // Set loading state back to false, whether the API call succeeds or fails
+      setIsLoading(false);
     }
   };
 
@@ -105,8 +132,11 @@ const Login = () => {
                         <div className="md:col-span-5">
                           <div className=" text-center">
                             <div className="inline-flex items-end">
-                              <button className="bg-green-900 hover:bg-green-500 text-white font-bold py-2 px-4 rounded">
-                                Login
+                              <button
+                                className="bg-green-900 hover:bg-green-500 text-white font-bold py-2 px-4 rounded"
+                                disabled={isLoading}
+                              >
+                                {isLoading ? "Loading..." : "Login"}
                               </button>
                             </div>
                           </div>
