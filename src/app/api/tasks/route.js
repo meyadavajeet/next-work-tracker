@@ -12,12 +12,18 @@ export async function POST(request) {
   const { title, content, deadlineDate, userId, addedDate } =
     await request.json();
   try {
+    // get token from the cookies and set the userId with loggedIn userId
+    const authToken = request.cookies.get("authToken")?.value;
+    const currentUserDetails = JWT.verify(
+      authToken,
+      process.env.JWT_SECRET_KEY
+    );
     const task = new TaskModel({
       title,
       content,
       addedDate: moment(addedDate, "YYYY-MM-DD").toDate(),
       deadlineDate: moment(deadlineDate, "YYYY-MM-DD").toDate(),
-      userId,
+      userId: currentUserDetails._id,
     });
 
     const newTask = await task.save();
