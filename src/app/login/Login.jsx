@@ -48,7 +48,8 @@ const Login = () => {
           position: "top-right",
         });
       }
-      router.push("/profile/user");
+      // router.push("/profile/user");
+      router.push("/");
     } catch (error) {
       console.log("error", error);
       toast.error("Something went wrong !!!" + error.response.data.message, {

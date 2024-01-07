@@ -1,26 +1,31 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import UserContext from "./userContext";
-import { toast } from "react-toastify";
 import { currentUser } from "@/services/currentUser";
+import { useCookies } from 'next-client-cookies';
 
 const UserProvider = ({ children }) => {
+  const cookies = useCookies();
   const [user, setUser] = useState(undefined);
 
+  const token = cookies.get('authToken');
+  
   useEffect(() => {
     async function fetchCurrentUser() {
-      try {
+      try {           
         const loggedInUser = await currentUser();
         console.log(loggedInUser, "LoggedInUser");
         setUser({ ...loggedInUser });
       } catch (error) {
         console.log(error);
-        toast.error("error in loading current  user" +error);
+        // toast.error("error in loading current  user" +error);
         setUser(undefined);
       }
     }
-    fetchCurrentUser();
-  }, []);
+    
+      console.log(cookies.get('authToken'), "getting token if exist");   
+      fetchCurrentUser();
+  },[]);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
