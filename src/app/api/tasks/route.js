@@ -2,6 +2,7 @@ import TaskModel from "@/models/task.model";
 import { NextResponse } from "next/server";
 import moment from "moment";
 import { sendResponse } from "@/utils/sendResponse";
+import JWT from "jsonwebtoken";
 
 const { connectDB } = require("@/config/db.connection");
 
@@ -18,6 +19,7 @@ export async function POST(request) {
       authToken,
       process.env.JWT_SECRET_KEY
     );
+    console.log(currentUserDetails);
     const task = new TaskModel({
       title,
       content,

@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import UserContext from "./userContext";
+import UserContext from "@/app/context/userContext";
 import { currentUser } from "@/services/currentUser";
 import { useCookies } from 'next-client-cookies';
 
@@ -14,8 +14,8 @@ const UserProvider = ({ children }) => {
     async function fetchCurrentUser() {
       try {           
         const loggedInUser = await currentUser();
-        console.log(loggedInUser, "LoggedInUser");
-        setUser({ ...loggedInUser });
+        // console.log("loggedInUser",loggedInUser);
+        loggedInUser &&  setUser({ ...loggedInUser });
       } catch (error) {
         console.log(error);
         // toast.error("error in loading current  user" +error);
