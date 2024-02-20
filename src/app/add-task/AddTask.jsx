@@ -17,25 +17,35 @@ const AddTask = () => {
     userId: "64b19054a28ba3f6b0658286",
   });
 
+  const [showButton, setShowButton] = useState(true);
+
   // handleFormSubmit
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // console.log(event.target);
-    console.log(task);
+    // console.log(task);
     // validate your data
+    setShowButton(false);
     try {
-      addTask(task);
-      toast.success("Task added !!!", { position: "top-right" });
-      setTask({
-        title: "",
-        content: "",
-        addedDate: "",
-        deadlineDate: "",
-        status: "",
-      });
+      const isTaskAdded = await addTask(task);
+      // console.log("isTaskCreated", isTaskAdded.data.success)
+      if (isTaskAdded.data.success == true) {
+        toast.success(`${isTaskAdded.data.message}`, { position: "top-right" });
+        setTask({
+          title: "",
+          content: "",
+          addedDate: "",
+          deadlineDate: "",
+          status: "",
+        });
+      } else {
+        toast.error(`${isTaskAdded.data.message}`, { position: "top-right" });
+      }
     } catch (error) {
       console.log("error in add task", error);
       toast.error("Error in adding task", { position: "top-right" });
+    } finally {
+      setShowButton(true);
     }
   };
 
@@ -153,15 +163,19 @@ const AddTask = () => {
                             <option value="Completed">Completed</option>
                           </select>
                         </div>
-                        <div className="md:col-span-5">
-                          <div className=" text-center">
-                            <div className="inline-flex items-end">
-                              <button className="bg-blue-900 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">
-                                Save Task
-                              </button>
+                        {showButton ?
+                          (<div className="md:col-span-5">
+                            <div className=" text-center">
+                              <div className="inline-flex items-end">
+                                <button className="bg-blue-900 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">
+                                  Save Task
+                                </button>
+                              </div>
                             </div>
-                          </div>
-                        </div>
+                          </div>)
+                          :
+                          (<div  className="md:col-span-5" ></div>)
+                        }
                         {/* {JSON.stringify(task)} */}
                       </div>
                     </div>
