@@ -20,7 +20,7 @@ const Login = () => {
   // handleFormSubmit
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setIsLoading(true);
+   
     // console.log(event.target);
     console.log(user);
     // validate your data
@@ -37,12 +37,18 @@ const Login = () => {
       console.log(errors);
       return;
     }
+    setIsLoading(true);
 
     try {
       if (user) {
-        await loginUser(user);
-        toast.success(" Login Success !!!", { position: "top-right" });
-        resetForm();
+        const response = await loginUser(user);
+        console.log("login response",response);
+        if(response){
+          toast.success(" Login Success !!!", { position: "top-right" });
+          resetForm();
+        }else{
+          toast.error("Email and Password may be wrong", { position: "top-right" });
+        }
       } else {
         toast.error("Please provide required details", {
           position: "top-right",
