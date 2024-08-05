@@ -46,16 +46,18 @@ const Login = () => {
         if(response){
           toast.success(" Login Success !!!", { position: "top-right" });
           resetForm();
+          router.push("/profile/user");
         }else{
           toast.error("Email and Password may be wrong", { position: "top-right" });
+          resetForm()
         }
       } else {
         toast.error("Please provide required details", {
           position: "top-right",
         });
       }
-      // router.push("/profile/user");
-      router.push("/");
+     
+      // router.push("/");
     } catch (error) {
       console.log("error", error);
       toast.error("Something went wrong !!!" + error.response.data.message, {
