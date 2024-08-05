@@ -1,9 +1,11 @@
 import Image from "next/image";
 
 export default function UserProfile() {
+
+
   return (
     <>
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto p-4 mt-5">
         <div className="bg-white shadow-md rounded-lg p-6">
           <div className="flex items-center">
             {/* <Image
